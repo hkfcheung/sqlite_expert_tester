@@ -2,14 +2,63 @@
 
 Get your SQLite Expert model inference running in 3 steps.
 
-## Prerequisites
+## Choose Your Platform
 
-You need:
-- RTX 4090 GPU with NVIDIA drivers installed
+- **Windows users**: See [Windows Setup](#windows-quick-start) below
+- **Linux users**: See [Linux Setup](#linux-quick-start) below
+
+## Windows Quick Start
+
+### Prerequisites
+- RTX 4090 with NVIDIA drivers installed
+- Docker Desktop for Windows (with WSL2)
+- Git for Windows
+
+**Detailed setup**: See [WINDOWS_SETUP.md](WINDOWS_SETUP.md)
+
+### Step 1: Verify GPU Access
+
+Open Command Prompt or PowerShell:
+```cmd
+nvidia-smi
+```
+
+Should show your RTX 4090.
+
+### Step 2: Clone and Run
+
+```cmd
+git clone https://github.com/hkfcheung/sqlite_expert_tester.git
+cd sqlite_expert_tester
+
+# Option A: Using batch script (Command Prompt)
+run_inference.bat --build
+
+# Option B: Using PowerShell script
+.\run_inference.ps1 --build
+
+# Option C: Using docker compose directly
+docker compose up --build
+```
+
+### Step 3: View Results
+
+```cmd
+type outputs\inference_results_*.json
+```
+
+Or open the JSON file in VS Code, Notepad++, or your browser.
+
+---
+
+## Linux Quick Start
+
+### Prerequisites
+- RTX 4090 with NVIDIA drivers installed
 - Docker installed
 - NVIDIA Container Toolkit installed
 
-## Step 1: Verify GPU Access
+### Step 1: Verify GPU Access
 
 ```bash
 nvidia-smi
@@ -17,9 +66,12 @@ nvidia-smi
 
 Should show your RTX 4090.
 
-## Step 2: Build and Run
+### Step 2: Clone and Run
 
 ```bash
+git clone https://github.com/hkfcheung/sqlite_expert_tester.git
+cd sqlite_expert_tester
+
 # Make script executable
 chmod +x run_inference.sh
 
