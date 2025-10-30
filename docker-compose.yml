@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  sqlite-expert-inference:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sqlite-expert-inference:latest
+    container_name: sqlite-expert-test
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      - ./outputs:/app/outputs
+      - ~/.cache/huggingface:/root/.cache/huggingface  # Cache models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true
+    command: python test_inference.py
